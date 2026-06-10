@@ -77,39 +77,69 @@ def pgd_ensemble_poison(
 
 # ── Quick test ─────────────────────────────────────────────────────────────
 if __name__ == '__main__':
-    from models import load_facenet, get_facenet_embedding
+    from models import load_facenet, load_arcface
+    import time, tempfile, os, cv2
 
     test_img = r'C:\projects\FacialPrivacyShield\data\lfw-dataset\lfw-deepfunneled\lfw-deepfunneled\Richard_Myers\Richard_Myers_0004.jpg'
 
-    print("Loading FaceNet proxy...")
+    print("Loading proxy models...")
     facenet = load_facenet()
+    arcface = load_arcface()
 
     def facenet_embed(x):
-        # normalize to [-1, 1] for FaceNet
         x_norm = x * 2 - 1
         return facenet(x_norm)
 
+    def vggface_embed(x):
+        from deepface import DeepFace
+        pil = tensor_to_pil(x)
+        with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as f:
+            pil.save(f.name)
+            tmp = f.name
+        result = DeepFace.represent(tmp, model_name='VGG-Face', enforce_detection=False)
+        os.unlink(tmp)
+        emb = torch.tensor(result[0]['embedding'], dtype=torch.float32).to(device)
+        emb = emb / emb.norm()
+        return emb.unsqueeze(0)
+
+    def arcface_embed(x):
+        pil = tensor_to_pil(x)
+        with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as f:
+            pil.save(f.name)
+            tmp = f.name
+        img_cv = cv2.imread(tmp)
+        os.unlink(tmp)
+        img_cv = cv2.resize(img_cv, (160, 160))
+        faces = arcface.get(img_cv)
+        if len(faces) == 0:
+            return torch.zeros(1, 512).to(device)
+        emb = torch.tensor(faces[0].embedding, dtype=torch.float32).to(device)
+        emb = emb / emb.norm()
+        return emb.unsqueeze(0)
+
     img = load_image_tensor(test_img)
 
-    print("Running PGD ensemble poisoning (40 iterations)...")
-    proxy_models = [(facenet_embed, 1.0)]  # single proxy for now
-    
-    import time
+    print("\n--- Single Proxy (FaceNet only) ---")
     t0 = time.time()
-    img_poisoned = pgd_ensemble_poison(img, proxy_models)
-    elapsed = time.time() - t0
+    img_single = pgd_ensemble_poison(img, [(facenet_embed, 1.0)])
+    t1 = time.time()
+    print(f"Time:  {t1-t0:.1f}s")
+    print(f"SSIM:  {compute_ssim(img, img_single):.4f}")
+    print(f"LPIPS: {compute_lpips(img, img_single):.4f}")
 
-    ssim_val = compute_ssim(img, img_poisoned)
-    lpips_val = compute_lpips(img, img_poisoned)
+    print("\n--- Ensemble (FaceNet + VGG-Face + ArcFace) ---")
+    t0 = time.time()
+    img_ensemble = pgd_ensemble_poison(img, [
+        (facenet_embed, 1/3),
+        (vggface_embed, 1/3),
+        (arcface_embed, 1/3),
+    ])
+    t1 = time.time()
+    print(f"Time:  {t1-t0:.1f}s")
+    print(f"SSIM:  {compute_ssim(img, img_ensemble):.4f}")
+    print(f"LPIPS: {compute_lpips(img, img_ensemble):.4f}")
 
-    print(f"Done in {elapsed:.1f}s")
-    print(f"SSIM:  {ssim_val:.4f} (target >= 0.90)")
-    print(f"LPIPS: {lpips_val:.4f} (target <= 0.05)")
-    print(f"Max perturbation: {(img_poisoned - img).abs().max().item():.4f} (should be ~0.031 = 8/255)")
-
-    # save side by side
-    orig_pil = tensor_to_pil(img)
-    pois_pil = tensor_to_pil(img_poisoned)
-    orig_pil.save('experiments/original.jpg')
-    pois_pil.save('experiments/poisoned.jpg')
-    print("Saved original.jpg and poisoned.jpg to experiments/")
+    tensor_to_pil(img).save('experiments/original.jpg')
+    tensor_to_pil(img_single).save('experiments/poisoned_single.jpg')
+    tensor_to_pil(img_ensemble).save('experiments/poisoned_ensemble.jpg')
+    print("\nSaved original, poisoned_single, poisoned_ensemble to experiments/")
