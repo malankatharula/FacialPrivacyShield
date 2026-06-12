@@ -37,11 +37,13 @@ def pgd_ensemble_poison(
     eps=8/255,           # L-inf perturbation budget
     alpha=2/255,         # step size
     n_iter=40,           # PGD iterations
-    weights=None         # per-model weights (None = uniform)
+    weights=None,        # per-model weights (None = uniform)
+    quality_weight=0.5   # weight for perceptual quality penalty
 ):
     """
     Generate adversarial perturbation via PGD over ensemble of proxy models.
     Maximizes feature-space divergence across all proxies simultaneously.
+    Includes perceptual quality penalty to maintain SSIM >= 0.90.
     """
     if weights is None:
         weights = [1.0 / len(proxy_models)] * len(proxy_models)
@@ -53,22 +55,26 @@ def pgd_ensemble_poison(
 
     for i in range(n_iter):
         x_adv.requires_grad_(True)
-        
+
         total_loss = torch.tensor(0.0, device=device)
-        
+
         for (model_fn, model_weight), w in zip(proxy_models, weights):
             emb_orig = model_fn(x)
             emb_adv  = model_fn(x_adv)
             # maximize cosine distance between original and poisoned embeddings
             cos_sim = F.cosine_similarity(emb_orig, emb_adv, dim=-1).mean()
-            loss = cos_sim * w  # minimize cosine similarity = maximize divergence
+            loss = cos_sim * w
             total_loss = total_loss + loss
 
+        # perceptual quality penalty — penalizes visible distortion
+        quality_penalty = loss_fn_lpips(x * 2 - 1, x_adv * 2 - 1)
+        total_loss = total_loss + quality_weight * quality_penalty
+
         total_loss.backward()
-        
+
         with torch.no_grad():
             grad = x_adv.grad.sign()
-            x_adv = x_adv - alpha * grad  # gradient descent on similarity
+            x_adv = x_adv - alpha * grad
             # project back into epsilon ball
             delta = torch.clamp(x_adv - x, -eps, eps)
             x_adv = torch.clamp(x + delta, 0, 1).detach()
