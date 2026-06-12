@@ -35,6 +35,22 @@ def get_deepface_embedding(img_path):
     )
     emb = np.array(result[0]['embedding'], dtype=np.float32)
     return torch.tensor(emb).to(device)
+# ── VGG-Face (PyTorch native — differentiable) ─────────────────────────────
+def load_vggface_pytorch():
+    import torchvision.models as tvm
+    model = tvm.vgg16(weights=tvm.VGG16_Weights.IMAGENET1K_V1)
+    model.classifier = torch.nn.Sequential(*list(model.classifier.children())[:-1])
+    model = model.eval().to(device)
+    return model
+
+def get_vggface_pytorch_embedding(model, x):
+    mean = torch.tensor([0.485, 0.456, 0.406]).view(1,3,1,1).to(device)
+    std  = torch.tensor([0.229, 0.224, 0.225]).view(1,3,1,1).to(device)
+    x_resized = torch.nn.functional.interpolate(x, size=(224,224), mode='bilinear', align_corners=False)
+    x_norm = (x_resized - mean) / std
+    emb = model(x_norm)
+    emb = emb / emb.norm(dim=-1, keepdim=True)
+    return emb
 
 # ── ArcFace ────────────────────────────────────────────────────────────────
 def load_arcface():

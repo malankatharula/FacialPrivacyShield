@@ -77,7 +77,7 @@ def pgd_ensemble_poison(
 
 # ── Quick test ─────────────────────────────────────────────────────────────
 if __name__ == '__main__':
-    from models import load_facenet, load_arcface
+    from models import load_facenet, load_arcface, load_vggface_pytorch, get_vggface_pytorch_embedding
     import time, tempfile, os, cv2
 
     test_img = r'C:\projects\FacialPrivacyShield\data\lfw-dataset\lfw-deepfunneled\lfw-deepfunneled\Richard_Myers\Richard_Myers_0004.jpg'
@@ -85,22 +85,14 @@ if __name__ == '__main__':
     print("Loading proxy models...")
     facenet = load_facenet()
     arcface = load_arcface()
+    vggface = load_vggface_pytorch()
 
     def facenet_embed(x):
         x_norm = x * 2 - 1
         return facenet(x_norm)
 
     def vggface_embed(x):
-        from deepface import DeepFace
-        pil = tensor_to_pil(x)
-        with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as f:
-            pil.save(f.name)
-            tmp = f.name
-        result = DeepFace.represent(tmp, model_name='VGG-Face', enforce_detection=False)
-        os.unlink(tmp)
-        emb = torch.tensor(result[0]['embedding'], dtype=torch.float32).to(device)
-        emb = emb / emb.norm()
-        return emb.unsqueeze(0)
+        return get_vggface_pytorch_embedding(vggface, x)
 
     def arcface_embed(x):
         pil = tensor_to_pil(x)
