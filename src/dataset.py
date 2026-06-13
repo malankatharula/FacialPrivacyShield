@@ -45,4 +45,4 @@ def build_dataset(lfw_dir=LFW_DIR, n_identities=SAMPLE_SIZE,
 if __name__ == '__main__':
     dataset = build_dataset()
     print("Sample entry:", dataset[0])
-    print("Dataset ready.")
+    print("Dataset ready.")//dataset.py

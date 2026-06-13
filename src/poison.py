@@ -44,6 +44,10 @@ def pgd_ensemble_poison(
     Generate adversarial perturbation via PGD over ensemble of proxy models.
     Maximizes feature-space divergence across all proxies simultaneously.
     Includes perceptual quality penalty to maintain SSIM >= 0.90.
+
+    Note: seed is set externally in evaluate.py before each call,
+    ensuring single and ensemble start from the same random state
+    for fair comparison and full reproducibility.
     """
     if weights is None:
         weights = [1.0 / len(proxy_models)] * len(proxy_models)
@@ -94,8 +98,7 @@ if __name__ == '__main__':
     vggface = load_vggface_pytorch()
 
     def facenet_embed(x):
-        x_norm = x * 2 - 1
-        return facenet(x_norm)
+        return facenet(x * 2 - 1)
 
     def vggface_embed(x):
         return get_vggface_pytorch_embedding(vggface, x)
@@ -118,6 +121,7 @@ if __name__ == '__main__':
     img = load_image_tensor(test_img)
 
     print("\n--- Single Proxy (FaceNet only) ---")
+    torch.manual_seed(42); torch.cuda.manual_seed(42)
     t0 = time.time()
     img_single = pgd_ensemble_poison(img, [(facenet_embed, 1.0)])
     t1 = time.time()
@@ -126,6 +130,7 @@ if __name__ == '__main__':
     print(f"LPIPS: {compute_lpips(img, img_single):.4f}")
 
     print("\n--- Ensemble (FaceNet + VGG-Face + ArcFace) ---")
+    torch.manual_seed(42); torch.cuda.manual_seed(42)
     t0 = time.time()
     img_ensemble = pgd_ensemble_poison(img, [
         (facenet_embed, 1/3),

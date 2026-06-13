@@ -10,7 +10,8 @@ from PIL import Image
 
 from models import (
     load_facenet, load_arcface,
-    load_vggface_pytorch, get_vggface_pytorch_embedding
+    load_vggface_pytorch, get_vggface_pytorch_embedding,
+    load_arcface_pytorch, get_arcface_pytorch_embedding,
 )
 from poison import (
     pgd_ensemble_poison, load_image_tensor,
@@ -44,7 +45,11 @@ def get_target_facenet_emb(facenet, img_tensor):
         emb = facenet(x_norm)
     return emb.squeeze(0)
 
-def get_target_arcface_emb(arcface, img_tensor):
+def get_target_arcface_emb(arcface_onnx, img_tensor):
+    """
+    Uses ONNX ArcFace for PR measurement — intentionally kept for
+    fair evaluation (same model as before, no gradient needed here).
+    """
     pil = tensor_to_pil(img_tensor)
     with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as f:
         pil.save(f.name)
@@ -52,7 +57,7 @@ def get_target_arcface_emb(arcface, img_tensor):
     img_cv = cv2.imread(tmp)
     os.unlink(tmp)
     img_cv = cv2.resize(img_cv, (160, 160))
-    faces = arcface.get(img_cv)
+    faces = arcface_onnx.get(img_cv)
     if len(faces) == 0:
         return torch.zeros(512).to(device)
     emb = torch.tensor(faces[0].embedding, dtype=torch.float32).to(device)
@@ -68,29 +73,40 @@ def run_evaluation(n_images=20, output_dir='experiments/eval'):
     os.makedirs(output_dir, exist_ok=True)
 
     print("Loading proxy models...")
-    facenet = load_facenet()
-    arcface = load_arcface()
-    vggface = load_vggface_pytorch()
+    facenet        = load_facenet()
+    arcface_onnx   = load_arcface()        # ONNX — for PR evaluation only
+    vggface        = load_vggface_pytorch()
+    arcface_pt     = load_arcface_pytorch() # PyTorch native — for PGD proxy
 
+    # ── Proxy model functions for PGD ──────────────────────────────────────
     def facenet_embed(x):
         return facenet(x * 2 - 1)
 
     def vggface_embed(x):
         return get_vggface_pytorch_embedding(vggface, x)
 
-    def arcface_embed(x):
-        pil = tensor_to_pil(x)
-        with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as f:
-            pil.save(f.name)
-            tmp = f.name
-        img_cv = cv2.imread(tmp)
-        os.unlink(tmp)
-        img_cv = cv2.resize(img_cv, (160, 160))
-        faces = arcface.get(img_cv)
-        if len(faces) == 0:
-            return torch.zeros(1, 512).to(device)
-        emb = torch.tensor(faces[0].embedding, dtype=torch.float32).to(device)
-        return (emb / emb.norm()).unsqueeze(0)
+    if arcface_pt is not None:
+        print("[Proxy] Using PyTorch ArcFace (differentiable) for ensemble PGD.")
+        def arcface_embed(x):
+            return get_arcface_pytorch_embedding(arcface_pt, x)
+        arcface_mode = 'pytorch'
+    else:
+        print("[Proxy] PyTorch ArcFace unavailable — falling back to ONNX wrapper.")
+        print("        ArcFace gradients will be zero during PGD (original behaviour).")
+        def arcface_embed(x):
+            pil = tensor_to_pil(x)
+            with tempfile.NamedTemporaryFile(suffix='.jpg', delete=False) as f:
+                pil.save(f.name)
+                tmp = f.name
+            img_cv = cv2.imread(tmp)
+            os.unlink(tmp)
+            img_cv = cv2.resize(img_cv, (160, 160))
+            faces = arcface_onnx.get(img_cv)
+            if len(faces) == 0:
+                return torch.zeros(1, 512).to(device)
+            emb = torch.tensor(faces[0].embedding, dtype=torch.float32).to(device)
+            return (emb / emb.norm()).unsqueeze(0)
+        arcface_mode = 'onnx_fallback'
 
     ensemble_proxies = [
         (facenet_embed, 1/3),
@@ -109,33 +125,50 @@ def run_evaluation(n_images=20, output_dir='experiments/eval'):
         identity = entry['identity']
         print(f"\n[{i+1}/{n_images}] {identity}")
 
+        # ── Fix seed per image so both single and ensemble start from
+        #    the same random state. This ensures:
+        #    1. Results are fully reproducible across runs
+        #    2. Single and ensemble are fairly compared (same init)
+        #    3. Ensemble can never be hurt by a different random start
+        torch.manual_seed(42 + i)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed(42 + i)
+
         img = load_image_tensor(img_path)
 
         t0 = time.time()
         img_single = pgd_ensemble_poison(img, single_proxy)
         t_single = time.time() - t0
 
+        # Reset seed so ensemble starts from the exact same random point
+        torch.manual_seed(42 + i)
+        if torch.cuda.is_available():
+            torch.cuda.manual_seed(42 + i)
+
         t0 = time.time()
         img_ensemble = pgd_ensemble_poison(img, ensemble_proxies)
         t_ensemble = time.time() - t0
 
-        ssim_single  = float(compute_ssim(img, img_single))
-        lpips_single = float(compute_lpips(img, img_single))
+        ssim_single    = float(compute_ssim(img, img_single))
+        lpips_single   = float(compute_lpips(img, img_single))
         ssim_ensemble  = float(compute_ssim(img, img_ensemble))
         lpips_ensemble = float(compute_lpips(img, img_ensemble))
 
+        # ── FaceNet PR ─────────────────────────────────────────────────────
         emb_orig_fn      = get_target_facenet_emb(facenet, img)
         emb_single_fn    = get_target_facenet_emb(facenet, img_single)
         emb_ensemble_fn  = get_target_facenet_emb(facenet, img_ensemble)
         mis_single_fn,   dist_single_fn   = is_misidentified(emb_orig_fn, emb_single_fn)
         mis_ensemble_fn, dist_ensemble_fn = is_misidentified(emb_orig_fn, emb_ensemble_fn)
 
-        emb_orig_arc      = get_target_arcface_emb(arcface, img)
-        emb_single_arc    = get_target_arcface_emb(arcface, img_single)
-        emb_ensemble_arc  = get_target_arcface_emb(arcface, img_ensemble)
+        # ── ArcFace PR (measured via ONNX — fair evaluation) ───────────────
+        emb_orig_arc      = get_target_arcface_emb(arcface_onnx, img)
+        emb_single_arc    = get_target_arcface_emb(arcface_onnx, img_single)
+        emb_ensemble_arc  = get_target_arcface_emb(arcface_onnx, img_ensemble)
         mis_single_arc,   dist_single_arc   = is_misidentified(emb_orig_arc, emb_single_arc)
         mis_ensemble_arc, dist_ensemble_arc = is_misidentified(emb_orig_arc, emb_ensemble_arc)
 
+        # ── VGG-Face PR ────────────────────────────────────────────────────
         emb_orig_vgg      = get_target_vggface_emb(vggface, img)
         emb_single_vgg    = get_target_vggface_emb(vggface, img_single)
         emb_ensemble_vgg  = get_target_vggface_emb(vggface, img_ensemble)
@@ -145,6 +178,7 @@ def run_evaluation(n_images=20, output_dir='experiments/eval'):
         result = {
             'identity': identity,
             'img_path': img_path,
+            'arcface_proxy_mode': arcface_mode,
             'single': {
                 'time':         round(float(t_single), 2),
                 'ssim':         round(ssim_single, 4),
@@ -181,6 +215,7 @@ def run_evaluation(n_images=20, output_dir='experiments/eval'):
     print("\n" + "="*60)
     print("SUMMARY")
     print("="*60)
+    print(f"ArcFace proxy mode: {arcface_mode}")
 
     for condition in ['single', 'ensemble']:
         times  = [r[condition]['time']  for r in results]

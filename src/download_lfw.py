@@ -29,3 +29,4 @@ else:
 identities = os.listdir(LFW_DIR)
 total_images = sum(len(os.listdir(os.path.join(LFW_DIR, p))) for p in identities)
 print(f"LFW: {len(identities)} identities, {total_images} images total.")
+//download_lfw.py
