@@ -199,3 +199,212 @@ if __name__ == '__main__':
         print("ArcFace PyTorch load failed — check output above.")
 
     print("\nAll models tested.")
+
+
+# ── AdaFace (CVLFace IR101-WebFace4M) — HELD-OUT EVALUATION TARGET ─────────
+# Used ONLY to measure transferability (O3). NOT used as a PGD proxy.
+# Forward-pass only (no gradients needed).
+#
+# Source: minchul/cvlface_adaface_ir101_webface4m on HuggingFace Hub.
+# Requires: transformers==4.46.3 (NOT 5.x — needs torch<2.4 compat),
+#           huggingface_hub<1.0, omegaconf, fvcore.
+#
+# Preprocessing (empirically verified): RGB, [0,1] range, 112x112 input.
+# This matches load_image_tensor()'s output directly -- only a resize needed.
+
+_ADAFACE_REPO = 'minchul/cvlface_adaface_ir101_webface4m'
+
+import os as _os
+_ADAFACE_SAVE_PATH = _os.path.join(
+    _os.path.expanduser('~'), '.cvlface_models', 'adaface_ir101_webface4m'
+)
+
+
+def _download_adaface(repo_id, path, hf_token=None):
+    """Download AdaFace model files from HuggingFace Hub."""
+    from huggingface_hub import hf_hub_download
+    _os.makedirs(path, exist_ok=True)
+    files_path = _os.path.join(path, 'files.txt')
+    if not _os.path.exists(files_path):
+        hf_hub_download(repo_id, 'files.txt', token=hf_token,
+                         local_dir=path, local_dir_use_symlinks=False)
+    with open(files_path, 'r') as f:
+        files = f.read().split('\n')
+    for file in [f for f in files if f] + ['config.json', 'wrapper.py', 'model.safetensors']:
+        full_path = _os.path.join(path, file)
+        if not _os.path.exists(full_path):
+            hf_hub_download(repo_id, file, token=hf_token,
+                             local_dir=path, local_dir_use_symlinks=False)
+
+
+def load_adaface(repo_id: str = _ADAFACE_REPO, save_path: str = None):
+    """
+    Load AdaFace (IR101-WebFace4M) as a held-out evaluation target.
+
+    Returns: nn.Module in eval mode on device. Output: [B, 512] embedding
+    (NOT pre-normalised -- caller should L2-normalise if needed for cosine
+    distance, consistent with other models in this file).
+
+    Input format: x of shape [B, 3, H, W] in [0, 1], RGB.
+    Use get_adaface_embedding(model, x) which handles the resize to 112x112.
+    """
+    import sys
+    # Avoid hanging on HF's xet transfer backend (known to stall on some networks)
+    _os.environ.setdefault('HF_HUB_DISABLE_XET', '1')
+
+    from transformers import AutoModel
+
+    if save_path is None:
+        save_path = _ADAFACE_SAVE_PATH
+
+    print(f"[AdaFace] Loading {repo_id} (held-out eval target)...")
+    _download_adaface(repo_id, save_path)
+
+    cwd = _os.getcwd()
+    _os.chdir(save_path)
+    sys.path.insert(0, save_path)
+
+    # CVLFace's wrapper.py does `from models import get_model`, expecting its
+    # OWN models/ package (downloaded into save_path). But this very file is
+    # named src/models.py and is already cached in sys.modules['models'] (and
+    # possibly models.iresnet etc. from a prior call). Without eviction,
+    # Python's import cache would hand wrapper.py THIS module instead of
+    # CVLFace's, causing "cannot import name 'get_model' from 'models'".
+    # Temporarily evict our 'models'/'models.*' entries so the dynamic import
+    # re-resolves via the CVLFace path inserted above, then restore them.
+    saved_modules = {k: v for k, v in sys.modules.items()
+                     if k == 'models' or k.startswith('models.')}
+    for k in saved_modules:
+        del sys.modules[k]
+
+    try:
+        model = AutoModel.from_pretrained(save_path, trust_remote_code=True)
+    finally:
+        _os.chdir(cwd)
+        sys.path.pop(0)
+        # Restore our models module(s) so subsequent `from models import ...`
+        # elsewhere in this process still resolves to src/models.py.
+        for k in list(sys.modules.keys()):
+            if k == 'models' or k.startswith('models.'):
+                del sys.modules[k]
+        for k, v in saved_modules.items():
+            sys.modules[k] = v
+
+    model = model.eval().to(device)
+    print("[AdaFace] Loaded.")
+    return model
+
+
+def get_adaface_embedding(model, x: torch.Tensor) -> torch.Tensor:
+    """
+    x: [B, 3, H, W] in [0, 1], RGB (matches load_image_tensor output).
+    Returns: [B, 512] embedding (forward pass only, no_grad).
+    """
+    x_resized = torch.nn.functional.interpolate(
+        x, size=(112, 112), mode='bilinear', align_corners=False
+    )
+    with torch.no_grad():
+        emb = model(x_resized)
+    return emb
+
+
+# ── ElasticFace (IResNet-100, ElasticFace-Cos+) — HELD-OUT EVAL TARGET ─────
+# O3 cross-architecture transferability target #2.
+# Used ONLY for evaluation (forward pass, no gradients).
+#
+# Architecture: standard InsightFace iresnet100 (src/iresnet.py) -- the SAME
+# file ElasticFace's training code imports, so state_dict keys should match
+# directly via load_state_dict() with strict=True.
+#
+# Weights: 295672backbone.pth from the official ElasticFace repo
+# (fdbtrs/ElasticFace, ElasticFace-Cos+ variant), CC BY-NC-SA 4.0.
+# Google Drive folder (download manually, see instructions):
+#   https://drive.google.com/drive/folders/19LXrjVNt60JBZP7JqsvOSWMwGLGrcJl5
+#
+# Place the downloaded file at: data/elasticface/295672backbone.pth
+#
+# Preprocessing: BGR (per ElasticFace/CR-FIQA evaluation scripts).
+# Normalisation TBD -- verify empirically like AdaFace (RGB[0,1] won there;
+# do NOT assume BGR[-1,1] is correct without checking).
+
+_ELASTICFACE_WEIGHTS_PATH = _os.path.join(
+    'data', 'elasticface', '295672backbone.pth'
+)
+
+
+def load_elasticface(weights_path: str = None):
+    """
+    Load ElasticFace-Cos+ (IResNet-100) as a held-out evaluation target.
+
+    Requires 295672backbone.pth downloaded manually from the Google Drive
+    folder linked above and placed at data/elasticface/295672backbone.pth
+    (relative to project root) or pass an explicit weights_path.
+
+    Returns: nn.Module in eval mode on device, or None if weights not found.
+    Output: [B, 512] embedding (not L2-normalised).
+    """
+    if weights_path is None:
+        weights_path = _ELASTICFACE_WEIGHTS_PATH
+
+    if not _os.path.exists(weights_path):
+        print(f"[ElasticFace] Weights not found at {weights_path}")
+        print("[ElasticFace] Download 295672backbone.pth from:")
+        print("  https://drive.google.com/drive/folders/19LXrjVNt60JBZP7JqsvOSWMwGLGrcJl5")
+        print(f"  and place it at: {weights_path}")
+        return None
+
+    from iresnet import iresnet100
+
+    print(f"[ElasticFace] Loading IResNet-100 from {weights_path} ...")
+    model = iresnet100()
+    state_dict = torch.load(weights_path, map_location=device)
+
+    # Some checkpoints wrap the state_dict in a 'state_dict' or 'model' key
+    if isinstance(state_dict, dict) and 'state_dict' in state_dict:
+        state_dict = state_dict['state_dict']
+    if isinstance(state_dict, dict) and 'model' in state_dict:
+        state_dict = state_dict['model']
+
+    # Strip potential 'module.' prefix from DataParallel-trained checkpoints
+    state_dict = { (k[7:] if k.startswith('module.') else k): v
+                    for k, v in state_dict.items() }
+
+    missing, unexpected = model.load_state_dict(state_dict, strict=False)
+    n_total = len(model.state_dict())
+    n_loaded = n_total - len(missing)
+    print(f"[ElasticFace] Loaded {n_loaded}/{n_total} keys "
+          f"({len(missing)} missing, {len(unexpected)} unexpected)")
+    if missing:
+        print(f"  Missing (first 5): {missing[:5]}")
+    if unexpected:
+        print(f"  Unexpected (first 5): {unexpected[:5]}")
+
+    model = model.eval().to(device)
+    print("[ElasticFace] Loaded.")
+    return model
+
+
+def get_elasticface_embedding(model, x: torch.Tensor, bgr: bool = False,
+                               normalize_range: str = '[0,1]') -> torch.Tensor:
+    """
+    x: [B, 3, H, W] in [0, 1], RGB (matches load_image_tensor output).
+    bgr: if True, flip RGB->BGR before feeding the model.
+    normalize_range: '[-1,1]' applies x*2-1; '[0,1]' leaves as-is.
+
+    Defaults (bgr=False, normalize_range='[0,1]') are the EMPIRICALLY
+    VERIFIED best config (gap=0.6753 vs BGR[-1,1]'s 0.5406 in
+    test_elasticface_preprocessing.py) -- despite ElasticFace's official
+    docs suggesting BGR. Same convention as AdaFace.
+
+    Returns: [B, 512] embedding (forward pass only, no_grad).
+    """
+    x_resized = torch.nn.functional.interpolate(
+        x, size=(112, 112), mode='bilinear', align_corners=False
+    )
+    if bgr:
+        x_resized = x_resized[:, [2, 1, 0], :, :]
+    if normalize_range == '[-1,1]':
+        x_resized = x_resized * 2 - 1
+    with torch.no_grad():
+        emb = model(x_resized)
+    return emb
