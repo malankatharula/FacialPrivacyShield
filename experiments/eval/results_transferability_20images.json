@@ -1,0 +1,362 @@
+[
+  {
+    "identity": "Richard_Myers",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Richard_Myers\\Richard_Myers_0004.jpg",
+    "single": {
+      "time": 4.84,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2088,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.3886
+    },
+    "ensemble": {
+      "time": 15.9,
+      "pr_adaface": 1,
+      "dist_adaface": 0.4881,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.5894
+    }
+  },
+  {
+    "identity": "Richard_Myers",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Richard_Myers\\Richard_Myers_0003.jpg",
+    "single": {
+      "time": 4.86,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2819,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.33
+    },
+    "ensemble": {
+      "time": 15.76,
+      "pr_adaface": 1,
+      "dist_adaface": 0.3356,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.4214
+    }
+  },
+  {
+    "identity": "Richard_Myers",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Richard_Myers\\Richard_Myers_0005.jpg",
+    "single": {
+      "time": 4.87,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2351,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.1913
+    },
+    "ensemble": {
+      "time": 15.84,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2383,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.1354
+    }
+  },
+  {
+    "identity": "Richard_Myers",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Richard_Myers\\Richard_Myers_0009.jpg",
+    "single": {
+      "time": 4.83,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2634,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2334
+    },
+    "ensemble": {
+      "time": 15.78,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2459,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2689
+    }
+  },
+  {
+    "identity": "Richard_Myers",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Richard_Myers\\Richard_Myers_0001.jpg",
+    "single": {
+      "time": 4.78,
+      "pr_adaface": 1,
+      "dist_adaface": 0.3058,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.1515
+    },
+    "ensemble": {
+      "time": 15.85,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2926,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.3393
+    }
+  },
+  {
+    "identity": "Carlos_Moya",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Carlos_Moya\\Carlos_Moya_0012.jpg",
+    "single": {
+      "time": 4.87,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2577,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2382
+    },
+    "ensemble": {
+      "time": 15.79,
+      "pr_adaface": 1,
+      "dist_adaface": 0.3667,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.5018
+    }
+  },
+  {
+    "identity": "Carlos_Moya",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Carlos_Moya\\Carlos_Moya_0018.jpg",
+    "single": {
+      "time": 4.73,
+      "pr_adaface": 0,
+      "dist_adaface": 0.1261,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2326
+    },
+    "ensemble": {
+      "time": 15.89,
+      "pr_adaface": 0,
+      "dist_adaface": 0.1807,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2774
+    }
+  },
+  {
+    "identity": "Carlos_Moya",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Carlos_Moya\\Carlos_Moya_0005.jpg",
+    "single": {
+      "time": 5.04,
+      "pr_adaface": 1,
+      "dist_adaface": 0.308,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.3432
+    },
+    "ensemble": {
+      "time": 15.86,
+      "pr_adaface": 0,
+      "dist_adaface": 0.236,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.3407
+    }
+  },
+  {
+    "identity": "Carlos_Moya",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Carlos_Moya\\Carlos_Moya_0014.jpg",
+    "single": {
+      "time": 4.87,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2114,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2331
+    },
+    "ensemble": {
+      "time": 15.84,
+      "pr_adaface": 0,
+      "dist_adaface": 0.1818,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2501
+    }
+  },
+  {
+    "identity": "Carlos_Moya",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Carlos_Moya\\Carlos_Moya_0003.jpg",
+    "single": {
+      "time": 4.95,
+      "pr_adaface": 0,
+      "dist_adaface": 0.1131,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.1512
+    },
+    "ensemble": {
+      "time": 15.74,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2397,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2059
+    }
+  },
+  {
+    "identity": "Alvaro_Uribe",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Alvaro_Uribe\\Alvaro_Uribe_0003.jpg",
+    "single": {
+      "time": 4.81,
+      "pr_adaface": 1,
+      "dist_adaface": 0.3307,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2907
+    },
+    "ensemble": {
+      "time": 15.87,
+      "pr_adaface": 1,
+      "dist_adaface": 0.3005,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2542
+    }
+  },
+  {
+    "identity": "Alvaro_Uribe",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Alvaro_Uribe\\Alvaro_Uribe_0020.jpg",
+    "single": {
+      "time": 4.94,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2571,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2676
+    },
+    "ensemble": {
+      "time": 42.02,
+      "pr_adaface": 1,
+      "dist_adaface": 0.3304,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.4085
+    }
+  },
+  {
+    "identity": "Alvaro_Uribe",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Alvaro_Uribe\\Alvaro_Uribe_0024.jpg",
+    "single": {
+      "time": 22.1,
+      "pr_adaface": 1,
+      "dist_adaface": 0.3197,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.3939
+    },
+    "ensemble": {
+      "time": 41.58,
+      "pr_adaface": 1,
+      "dist_adaface": 0.3508,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.4729
+    }
+  },
+  {
+    "identity": "Alvaro_Uribe",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Alvaro_Uribe\\Alvaro_Uribe_0023.jpg",
+    "single": {
+      "time": 23.31,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2784,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2367
+    },
+    "ensemble": {
+      "time": 24.13,
+      "pr_adaface": 1,
+      "dist_adaface": 0.5313,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.4889
+    }
+  },
+  {
+    "identity": "Alvaro_Uribe",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Alvaro_Uribe\\Alvaro_Uribe_0014.jpg",
+    "single": {
+      "time": 6.65,
+      "pr_adaface": 0,
+      "dist_adaface": 0.1674,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.3074
+    },
+    "ensemble": {
+      "time": 19.34,
+      "pr_adaface": 1,
+      "dist_adaface": 0.3676,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.3775
+    }
+  },
+  {
+    "identity": "Tiger_Woods",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Tiger_Woods\\Tiger_Woods_0022.jpg",
+    "single": {
+      "time": 6.7,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2709,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.195
+    },
+    "ensemble": {
+      "time": 19.31,
+      "pr_adaface": 1,
+      "dist_adaface": 0.3951,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.3457
+    }
+  },
+  {
+    "identity": "Tiger_Woods",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Tiger_Woods\\Tiger_Woods_0008.jpg",
+    "single": {
+      "time": 6.66,
+      "pr_adaface": 0,
+      "dist_adaface": 0.1642,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.257
+    },
+    "ensemble": {
+      "time": 19.21,
+      "pr_adaface": 0,
+      "dist_adaface": 0.1734,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2179
+    }
+  },
+  {
+    "identity": "Tiger_Woods",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Tiger_Woods\\Tiger_Woods_0004.jpg",
+    "single": {
+      "time": 6.57,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2148,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.1759
+    },
+    "ensemble": {
+      "time": 19.7,
+      "pr_adaface": 1,
+      "dist_adaface": 0.3384,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2106
+    }
+  },
+  {
+    "identity": "Tiger_Woods",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Tiger_Woods\\Tiger_Woods_0012.jpg",
+    "single": {
+      "time": 6.77,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2186,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.2244
+    },
+    "ensemble": {
+      "time": 19.25,
+      "pr_adaface": 1,
+      "dist_adaface": 0.3224,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.249
+    }
+  },
+  {
+    "identity": "Tiger_Woods",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Tiger_Woods\\Tiger_Woods_0018.jpg",
+    "single": {
+      "time": 6.65,
+      "pr_adaface": 0,
+      "dist_adaface": 0.1501,
+      "pr_elasticface": 0,
+      "dist_elasticface": 0.1894
+    },
+    "ensemble": {
+      "time": 19.29,
+      "pr_adaface": 0,
+      "dist_adaface": 0.2207,
+      "pr_elasticface": 1,
+      "dist_elasticface": 0.355
+    }
+  }
+]
