@@ -9,3 +9,6 @@ dist/
 .DS_Store
 app/frontend/node_modules/
 app/frontend/dist/
+
+app/frontend/node_modules/
+app/frontend/dist/
