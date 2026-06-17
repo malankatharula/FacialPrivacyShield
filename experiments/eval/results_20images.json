@@ -1,0 +1,542 @@
+[
+  {
+    "identity": "Richard_Myers",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Richard_Myers\\Richard_Myers_0004.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 4.69,
+      "ssim": 0.8931,
+      "lpips": 0.0081,
+      "pr_facenet": 1,
+      "dist_facenet": 1.7291,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1921,
+      "pr_vggface": 0,
+      "dist_vggface": 0.1268
+    },
+    "ensemble": {
+      "time": 17.12,
+      "ssim": 0.8851,
+      "lpips": 0.0099,
+      "pr_facenet": 1,
+      "dist_facenet": 1.6448,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1987,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9839
+    }
+  },
+  {
+    "identity": "Richard_Myers",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Richard_Myers\\Richard_Myers_0003.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 4.63,
+      "ssim": 0.8459,
+      "lpips": 0.0365,
+      "pr_facenet": 1,
+      "dist_facenet": 1.8232,
+      "pr_arcface": 1,
+      "dist_arcface": 0.4019,
+      "pr_vggface": 1,
+      "dist_vggface": 0.3173
+    },
+    "ensemble": {
+      "time": 16.82,
+      "ssim": 0.8351,
+      "lpips": 0.0354,
+      "pr_facenet": 1,
+      "dist_facenet": 1.7166,
+      "pr_arcface": 1,
+      "dist_arcface": 0.4499,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9941
+    }
+  },
+  {
+    "identity": "Richard_Myers",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Richard_Myers\\Richard_Myers_0005.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 4.84,
+      "ssim": 0.8654,
+      "lpips": 0.0139,
+      "pr_facenet": 1,
+      "dist_facenet": 1.8223,
+      "pr_arcface": 0,
+      "dist_arcface": 0.111,
+      "pr_vggface": 0,
+      "dist_vggface": 0.1784
+    },
+    "ensemble": {
+      "time": 17.33,
+      "ssim": 0.8544,
+      "lpips": 0.0135,
+      "pr_facenet": 1,
+      "dist_facenet": 1.4365,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1169,
+      "pr_vggface": 1,
+      "dist_vggface": 0.982
+    }
+  },
+  {
+    "identity": "Richard_Myers",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Richard_Myers\\Richard_Myers_0009.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.31,
+      "ssim": 0.8483,
+      "lpips": 0.0163,
+      "pr_facenet": 1,
+      "dist_facenet": 1.8192,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1542,
+      "pr_vggface": 0,
+      "dist_vggface": 0.1773
+    },
+    "ensemble": {
+      "time": 17.14,
+      "ssim": 0.8397,
+      "lpips": 0.0159,
+      "pr_facenet": 1,
+      "dist_facenet": 1.5746,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1805,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9859
+    }
+  },
+  {
+    "identity": "Richard_Myers",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Richard_Myers\\Richard_Myers_0001.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.26,
+      "ssim": 0.8759,
+      "lpips": 0.021,
+      "pr_facenet": 1,
+      "dist_facenet": 1.9164,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1643,
+      "pr_vggface": 0,
+      "dist_vggface": 0.1217
+    },
+    "ensemble": {
+      "time": 17.16,
+      "ssim": 0.8635,
+      "lpips": 0.0258,
+      "pr_facenet": 1,
+      "dist_facenet": 1.6285,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1767,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9907
+    }
+  },
+  {
+    "identity": "Carlos_Moya",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Carlos_Moya\\Carlos_Moya_0012.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.23,
+      "ssim": 0.8861,
+      "lpips": 0.0237,
+      "pr_facenet": 1,
+      "dist_facenet": 1.8673,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1964,
+      "pr_vggface": 0,
+      "dist_vggface": 0.29
+    },
+    "ensemble": {
+      "time": 16.93,
+      "ssim": 0.8722,
+      "lpips": 0.0275,
+      "pr_facenet": 1,
+      "dist_facenet": 1.565,
+      "pr_arcface": 0,
+      "dist_arcface": 0.2764,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9954
+    }
+  },
+  {
+    "identity": "Carlos_Moya",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Carlos_Moya\\Carlos_Moya_0018.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.37,
+      "ssim": 0.8713,
+      "lpips": 0.0189,
+      "pr_facenet": 1,
+      "dist_facenet": 1.7911,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1719,
+      "pr_vggface": 0,
+      "dist_vggface": 0.2802
+    },
+    "ensemble": {
+      "time": 17.12,
+      "ssim": 0.8576,
+      "lpips": 0.024,
+      "pr_facenet": 1,
+      "dist_facenet": 1.7938,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1625,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9957
+    }
+  },
+  {
+    "identity": "Carlos_Moya",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Carlos_Moya\\Carlos_Moya_0005.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.37,
+      "ssim": 0.8752,
+      "lpips": 0.0154,
+      "pr_facenet": 1,
+      "dist_facenet": 1.7573,
+      "pr_arcface": 0,
+      "dist_arcface": 0.2874,
+      "pr_vggface": 0,
+      "dist_vggface": 0.1333
+    },
+    "ensemble": {
+      "time": 17.05,
+      "ssim": 0.8677,
+      "lpips": 0.014,
+      "pr_facenet": 1,
+      "dist_facenet": 1.7004,
+      "pr_arcface": 0,
+      "dist_arcface": 0.2352,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9923
+    }
+  },
+  {
+    "identity": "Carlos_Moya",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Carlos_Moya\\Carlos_Moya_0014.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.3,
+      "ssim": 0.8277,
+      "lpips": 0.0235,
+      "pr_facenet": 1,
+      "dist_facenet": 1.8112,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1936,
+      "pr_vggface": 1,
+      "dist_vggface": 0.4042
+    },
+    "ensemble": {
+      "time": 17.0,
+      "ssim": 0.815,
+      "lpips": 0.0241,
+      "pr_facenet": 1,
+      "dist_facenet": 1.6739,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1791,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9949
+    }
+  },
+  {
+    "identity": "Carlos_Moya",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Carlos_Moya\\Carlos_Moya_0003.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.47,
+      "ssim": 0.8573,
+      "lpips": 0.0202,
+      "pr_facenet": 1,
+      "dist_facenet": 1.7203,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1423,
+      "pr_vggface": 0,
+      "dist_vggface": 0.2704
+    },
+    "ensemble": {
+      "time": 17.85,
+      "ssim": 0.8519,
+      "lpips": 0.0225,
+      "pr_facenet": 1,
+      "dist_facenet": 1.485,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1495,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9877
+    }
+  },
+  {
+    "identity": "Alvaro_Uribe",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Alvaro_Uribe\\Alvaro_Uribe_0003.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.96,
+      "ssim": 0.8598,
+      "lpips": 0.0197,
+      "pr_facenet": 1,
+      "dist_facenet": 1.7834,
+      "pr_arcface": 0,
+      "dist_arcface": 0.2643,
+      "pr_vggface": 0,
+      "dist_vggface": 0.1264
+    },
+    "ensemble": {
+      "time": 17.18,
+      "ssim": 0.8434,
+      "lpips": 0.0233,
+      "pr_facenet": 1,
+      "dist_facenet": 1.6488,
+      "pr_arcface": 0,
+      "dist_arcface": 0.2279,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9942
+    }
+  },
+  {
+    "identity": "Alvaro_Uribe",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Alvaro_Uribe\\Alvaro_Uribe_0020.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.31,
+      "ssim": 0.8839,
+      "lpips": 0.0229,
+      "pr_facenet": 1,
+      "dist_facenet": 1.7768,
+      "pr_arcface": 1,
+      "dist_arcface": 0.3026,
+      "pr_vggface": 0,
+      "dist_vggface": 0.2204
+    },
+    "ensemble": {
+      "time": 17.16,
+      "ssim": 0.8792,
+      "lpips": 0.0177,
+      "pr_facenet": 1,
+      "dist_facenet": 1.5623,
+      "pr_arcface": 1,
+      "dist_arcface": 0.3217,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9919
+    }
+  },
+  {
+    "identity": "Alvaro_Uribe",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Alvaro_Uribe\\Alvaro_Uribe_0024.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.33,
+      "ssim": 0.8309,
+      "lpips": 0.0328,
+      "pr_facenet": 1,
+      "dist_facenet": 1.6646,
+      "pr_arcface": 1,
+      "dist_arcface": 0.3212,
+      "pr_vggface": 1,
+      "dist_vggface": 0.318
+    },
+    "ensemble": {
+      "time": 17.29,
+      "ssim": 0.8261,
+      "lpips": 0.0317,
+      "pr_facenet": 1,
+      "dist_facenet": 1.3709,
+      "pr_arcface": 1,
+      "dist_arcface": 0.3544,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9947
+    }
+  },
+  {
+    "identity": "Alvaro_Uribe",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Alvaro_Uribe\\Alvaro_Uribe_0023.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.41,
+      "ssim": 0.8406,
+      "lpips": 0.0184,
+      "pr_facenet": 1,
+      "dist_facenet": 1.8187,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1916,
+      "pr_vggface": 0,
+      "dist_vggface": 0.1227
+    },
+    "ensemble": {
+      "time": 17.06,
+      "ssim": 0.8309,
+      "lpips": 0.0181,
+      "pr_facenet": 1,
+      "dist_facenet": 1.6828,
+      "pr_arcface": 0,
+      "dist_arcface": 0.2225,
+      "pr_vggface": 1,
+      "dist_vggface": 0.991
+    }
+  },
+  {
+    "identity": "Alvaro_Uribe",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Alvaro_Uribe\\Alvaro_Uribe_0014.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.3,
+      "ssim": 0.8335,
+      "lpips": 0.0186,
+      "pr_facenet": 1,
+      "dist_facenet": 1.8274,
+      "pr_arcface": 1,
+      "dist_arcface": 0.3357,
+      "pr_vggface": 0,
+      "dist_vggface": 0.1265
+    },
+    "ensemble": {
+      "time": 17.11,
+      "ssim": 0.8277,
+      "lpips": 0.0187,
+      "pr_facenet": 1,
+      "dist_facenet": 1.703,
+      "pr_arcface": 1,
+      "dist_arcface": 0.3092,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9771
+    }
+  },
+  {
+    "identity": "Tiger_Woods",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Tiger_Woods\\Tiger_Woods_0022.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.41,
+      "ssim": 0.8607,
+      "lpips": 0.0215,
+      "pr_facenet": 1,
+      "dist_facenet": 1.5956,
+      "pr_arcface": 0,
+      "dist_arcface": 0.2174,
+      "pr_vggface": 1,
+      "dist_vggface": 0.3084
+    },
+    "ensemble": {
+      "time": 17.15,
+      "ssim": 0.848,
+      "lpips": 0.0228,
+      "pr_facenet": 1,
+      "dist_facenet": 1.5438,
+      "pr_arcface": 0,
+      "dist_arcface": 0.2743,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9944
+    }
+  },
+  {
+    "identity": "Tiger_Woods",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Tiger_Woods\\Tiger_Woods_0008.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.47,
+      "ssim": 0.8232,
+      "lpips": 0.0317,
+      "pr_facenet": 1,
+      "dist_facenet": 1.6863,
+      "pr_arcface": 0,
+      "dist_arcface": 0.195,
+      "pr_vggface": 1,
+      "dist_vggface": 0.4858
+    },
+    "ensemble": {
+      "time": 17.05,
+      "ssim": 0.8172,
+      "lpips": 0.0276,
+      "pr_facenet": 1,
+      "dist_facenet": 1.2344,
+      "pr_arcface": 0,
+      "dist_arcface": 0.203,
+      "pr_vggface": 1,
+      "dist_vggface": 0.99
+    }
+  },
+  {
+    "identity": "Tiger_Woods",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Tiger_Woods\\Tiger_Woods_0004.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.5,
+      "ssim": 0.8297,
+      "lpips": 0.0178,
+      "pr_facenet": 1,
+      "dist_facenet": 1.598,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1327,
+      "pr_vggface": 1,
+      "dist_vggface": 0.3002
+    },
+    "ensemble": {
+      "time": 17.18,
+      "ssim": 0.8212,
+      "lpips": 0.0196,
+      "pr_facenet": 1,
+      "dist_facenet": 1.4848,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1324,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9929
+    }
+  },
+  {
+    "identity": "Tiger_Woods",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Tiger_Woods\\Tiger_Woods_0012.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.6,
+      "ssim": 0.7781,
+      "lpips": 0.0168,
+      "pr_facenet": 1,
+      "dist_facenet": 1.6921,
+      "pr_arcface": 0,
+      "dist_arcface": 0.2502,
+      "pr_vggface": 0,
+      "dist_vggface": 0.2936
+    },
+    "ensemble": {
+      "time": 17.18,
+      "ssim": 0.7662,
+      "lpips": 0.017,
+      "pr_facenet": 1,
+      "dist_facenet": 1.343,
+      "pr_arcface": 0,
+      "dist_arcface": 0.2517,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9755
+    }
+  },
+  {
+    "identity": "Tiger_Woods",
+    "img_path": "C:\\projects\\FacialPrivacyShield\\data\\lfw-dataset\\lfw-deepfunneled\\lfw-deepfunneled\\Tiger_Woods\\Tiger_Woods_0018.jpg",
+    "arcface_proxy_mode": "pytorch",
+    "single": {
+      "time": 5.52,
+      "ssim": 0.8365,
+      "lpips": 0.0296,
+      "pr_facenet": 1,
+      "dist_facenet": 1.7185,
+      "pr_arcface": 0,
+      "dist_arcface": 0.1875,
+      "pr_vggface": 1,
+      "dist_vggface": 0.3452
+    },
+    "ensemble": {
+      "time": 17.13,
+      "ssim": 0.8282,
+      "lpips": 0.0249,
+      "pr_facenet": 1,
+      "dist_facenet": 1.1262,
+      "pr_arcface": 0,
+      "dist_arcface": 0.2017,
+      "pr_vggface": 1,
+      "dist_vggface": 0.9815
+    }
+  }
+]
