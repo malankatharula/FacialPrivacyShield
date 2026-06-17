@@ -29,6 +29,7 @@ from models import (
     load_arcface_pytorch, get_arcface_pytorch_embedding,
     load_adaface, get_adaface_embedding,
     load_elasticface, get_elasticface_embedding,
+    load_sphereface, get_sphereface_embedding,
 )
 from poison import pgd_ensemble_poison, load_image_tensor
 from dataset import build_dataset
@@ -93,11 +94,16 @@ def run_transferability_eval(n_images=20, output_dir='experiments/eval'):
     print("\nLoading ElasticFace (held-out target)...")
     elasticface = load_elasticface()
 
+    print("\nLoading SphereFace (held-out target)...")
+    sphereface = load_sphereface()
+
     held_out = {}
     if adaface is not None:
         held_out['adaface'] = (adaface, get_adaface_embedding)
     if elasticface is not None:
         held_out['elasticface'] = (elasticface, get_elasticface_embedding)
+    if sphereface is not None:
+        held_out['sphereface'] = (sphereface, get_sphereface_embedding)
 
     if not held_out:
         print("ERROR: no held-out models available.")

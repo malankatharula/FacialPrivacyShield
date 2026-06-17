@@ -408,3 +408,114 @@ def get_elasticface_embedding(model, x: torch.Tensor, bgr: bool = False,
     with torch.no_grad():
         emb = model(x_resized)
     return emb
+
+
+# ── SphereFace (sphere20a) — HELD-OUT EVAL TARGET #3 ───────────────────────
+# O3 cross-architecture transferability target #3.
+# Used ONLY for evaluation (forward pass, feature=True, no gradients).
+#
+# Architecture: clcarwin/sphereface_pytorch sphere20a (src/net_sphere.py),
+# MIT license. Pretrained weights (20171020, 99.22% LFW, CASIA-WebFace)
+# are hosted directly in that GitHub repo as a .7z archive -- NO Google
+# Drive needed:
+#   https://github.com/clcarwin/sphereface_pytorch/raw/master/model/sphere20a_20171020.7z
+#
+# Download, extract with 7-Zip or `pip install py7zr`, and place at:
+#   data/sphereface/sphere20a_20171020.pth
+#
+# IMPORTANT: input is NON-SQUARE -- B*3*112*96 (height x width), unlike
+# AdaFace/ElasticFace's 112x112. Preprocessing (RGB/BGR, normalisation)
+# is unverified -- check empirically with
+# test_sphereface_preprocessing.py before trusting results.
+
+_SPHEREFACE_WEIGHTS_PATH = _os.path.join(
+    'data', 'sphereface', 'sphere20a_20171020.pth'
+)
+
+
+def load_sphereface(weights_path: str = None):
+    """
+    Load SphereFace (sphere20a) as a held-out evaluation target.
+
+    Requires sphere20a_20171020.pth downloaded + extracted from the .7z
+    archive above and placed at data/sphereface/sphere20a_20171020.pth
+    (relative to project root), or pass an explicit weights_path.
+
+    Returns: nn.Module in eval mode on device (feature=True), or None if
+    weights not found. Output: [B, 512] embedding (not L2-normalised).
+    """
+    if weights_path is None:
+        weights_path = _SPHEREFACE_WEIGHTS_PATH
+
+    if not _os.path.exists(weights_path):
+        print(f"[SphereFace] Weights not found at {weights_path}")
+        print("[SphereFace] Download + extract the .7z from:")
+        print("  https://github.com/clcarwin/sphereface_pytorch/raw/master/model/sphere20a_20171020.7z")
+        print(f"  and place sphere20a_20171020.pth at: {weights_path}")
+        return None
+
+    from net_sphere import sphere20a
+
+    print(f"[SphereFace] Loading sphere20a from {weights_path} ...")
+    model = sphere20a(feature=True)
+    state_dict = torch.load(weights_path, map_location=device)
+
+    if isinstance(state_dict, dict) and 'state_dict' in state_dict:
+        state_dict = state_dict['state_dict']
+    if isinstance(state_dict, dict) and 'model' in state_dict:
+        state_dict = state_dict['model']
+
+    # Strip potential 'module.' prefix from DataParallel-trained checkpoints
+    state_dict = {(k[7:] if k.startswith('module.') else k): v
+                   for k, v in state_dict.items()}
+
+    missing, unexpected = model.load_state_dict(state_dict, strict=False)
+    n_total = len(model.state_dict())
+    n_loaded = n_total - len(missing)
+    print(f"[SphereFace] Loaded {n_loaded}/{n_total} keys "
+          f"({len(missing)} missing, {len(unexpected)} unexpected)")
+    if missing:
+        print(f"  Missing (first 5): {missing[:5]}")
+    if unexpected:
+        print(f"  Unexpected (first 5): {unexpected[:5]}")
+
+    model = model.eval().to(device)
+    model.feature = True
+    print("[SphereFace] Loaded.")
+    return model
+
+
+def get_sphereface_embedding(model, x: torch.Tensor, bgr: bool = True,
+                              normalize_mode: str = 'mean127') -> torch.Tensor:
+    """
+    x: [B, 3, H, W] in [0, 1], RGB (matches load_image_tensor output).
+    bgr: if True, flip RGB->BGR before feeding the model.
+    normalize_mode: one of
+      '[0,1]'        -> leave as-is
+      '[-1,1]'       -> x*2-1
+      'mean127'      -> (x*255 - 127.5) / 128.0  (original clcarwin convention)
+
+    Resizes to 112x96 (H x W) -- SphereFace's NON-SQUARE input.
+
+    Defaults (bgr=True, 'mean127') are the EMPIRICALLY VERIFIED best config
+    (gap=0.4568 vs RGB[0,1]'s 0.0578 in test_sphereface_preprocessing.py) --
+    this matches SphereFace's original documented Caffe-era convention
+    (unlike AdaFace/ElasticFace, where docs were misleading).
+
+    Returns: [B, 512] embedding (forward pass only, no_grad).
+    """
+    x_resized = torch.nn.functional.interpolate(
+        x, size=(112, 96), mode='bilinear', align_corners=False
+    )
+    if bgr:
+        x_resized = x_resized[:, [2, 1, 0], :, :]
+
+    if normalize_mode == '[-1,1]':
+        x_resized = x_resized * 2 - 1
+    elif normalize_mode == 'mean127':
+        x_resized = (x_resized * 255 - 127.5) / 128.0
+    # '[0,1]' -> no change
+
+    with torch.no_grad():
+        emb = model(x_resized)
+    return emb
