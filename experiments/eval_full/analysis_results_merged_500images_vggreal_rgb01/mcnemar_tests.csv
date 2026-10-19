@@ -1,0 +1,31 @@
+target,compared_with,ours_only,other_only,pr_difference,p_exact,p_holm,verdict
+facenet,single,0,0,0.0,1,1,no significant difference
+facenet,lowkey,0,0,0.0,1,1,no significant difference
+facenet,fawkes,0,0,0.0,1,1,no significant difference
+facenet,noise,500,0,1.0,6.11e-151,1.83e-149,ours better
+facenet,official_lowkey,321,0,0.642,4.68e-97,9.36e-96,ours better
+vggface,single,444,0,0.888,4.4e-134,1.19e-132,ours better
+vggface,lowkey,415,0,0.83,2.36e-125,6.15e-124,ours better
+vggface,fawkes,489,0,0.978,1.25e-147,3.5e-146,ours better
+vggface,noise,500,0,1.0,6.11e-151,1.83e-149,ours better
+vggface,official_lowkey,383,0,0.766,1.02e-115,2.54e-114,ours better
+arcface,single,72,3,0.138,3.73e-18,3.73e-17,ours better
+arcface,lowkey,66,3,0.126,1.86e-16,1.49e-15,ours better
+arcface,fawkes,126,0,0.252,2.35e-38,3.53e-37,ours better
+arcface,noise,147,0,0.294,1.12e-44,1.79e-43,ours better
+arcface,official_lowkey,3,341,-0.676,3.79e-97,7.95e-96,other better
+adaface,single,234,2,0.464,5.07e-67,8.61e-66,ours better
+adaface,lowkey,104,12,0.184,1.87e-19,2.24e-18,ours better
+adaface,fawkes,325,2,0.646,3.92e-94,7.45e-93,ours better
+adaface,noise,352,0,0.704,2.18e-106,5.01e-105,ours better
+adaface,official_lowkey,32,119,-0.174,5.59e-13,3.35e-12,other better
+elasticface,single,284,3,0.562,3.17e-80,5.7e-79,ours better
+elasticface,lowkey,112,17,0.19,2.45e-18,2.69e-17,ours better
+elasticface,fawkes,356,1,0.71,2.44e-105,5.37e-104,ours better
+elasticface,noise,369,0,0.738,1.66e-111,3.99e-110,ours better
+elasticface,official_lowkey,87,79,0.016,0.587,1,no significant difference
+sphereface,single,47,1,0.092,3.48e-13,2.44e-12,ours better
+sphereface,lowkey,23,10,0.026,0.0351,0.175,no significant difference
+sphereface,fawkes,68,0,0.136,6.78e-21,8.81e-20,ours better
+sphereface,noise,70,0,0.14,1.69e-21,2.37e-20,ours better
+sphereface,official_lowkey,62,1,0.122,1.39e-17,1.25e-16,ours better

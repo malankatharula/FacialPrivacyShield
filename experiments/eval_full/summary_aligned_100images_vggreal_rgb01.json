@@ -1,0 +1,262 @@
+{
+  "n_images": 100,
+  "n_identities": 20,
+  "n_no_face_skipped": 0,
+  "no_face": [],
+  "threshold": 0.3,
+  "eps": 0.03137254901960784,
+  "crop": 112,
+  "frame": 160,
+  "note": "Identical proxies, PGD settings, budget and seeds in all three conditions; only the spatial treatment differs. aligned_paste is crop-and-paste, not LowKey's affine warp.",
+  "baseline_160": {
+    "ssim": {
+      "mean": 0.831123,
+      "std": 0.03642932844563567
+    },
+    "lpips": {
+      "mean": 0.026847999999999997,
+      "std": 0.008764616135347856
+    },
+    "time": {
+      "mean": 11.726899999999999,
+      "std": 0.8694201458443439
+    },
+    "pr_facenet": 100.0,
+    "pr_facenet_ci95": [
+      96.3,
+      100.0
+    ],
+    "mean_dist_facenet": 1.5615,
+    "pr_vggface": 100.0,
+    "pr_vggface_ci95": [
+      96.3,
+      100.0
+    ],
+    "mean_dist_vggface": 0.7924,
+    "pr_arcface": 33.0,
+    "pr_arcface_ci95": [
+      24.6,
+      42.7
+    ],
+    "mean_dist_arcface": 0.2953,
+    "pr_adaface": 72.0,
+    "pr_adaface_ci95": [
+      62.5,
+      79.9
+    ],
+    "mean_dist_adaface": 0.396,
+    "pr_elasticface": 74.0,
+    "pr_elasticface_ci95": [
+      64.6,
+      81.6
+    ],
+    "mean_dist_elasticface": 0.4038,
+    "pr_sphereface": 16.0,
+    "pr_sphereface_ci95": [
+      10.1,
+      24.4
+    ],
+    "mean_dist_sphereface": 0.2122,
+    "arcface_no_face": 0
+  },
+  "aligned_crop": {
+    "ssim": {
+      "mean": 0.845567,
+      "std": 0.020619500745653368
+    },
+    "lpips": {
+      "mean": 0.036629999999999996,
+      "std": 0.009058084786531863
+    },
+    "time": {
+      "mean": 11.510899999999998,
+      "std": 0.8186441168175583
+    },
+    "pr_facenet": 100.0,
+    "pr_facenet_ci95": [
+      96.3,
+      100.0
+    ],
+    "mean_dist_facenet": 1.5613,
+    "pr_vggface": 100.0,
+    "pr_vggface_ci95": [
+      96.3,
+      100.0
+    ],
+    "mean_dist_vggface": 0.9283,
+    "pr_arcface": 84.0,
+    "pr_arcface_ci95": [
+      75.6,
+      89.9
+    ],
+    "mean_dist_arcface": 0.4125,
+    "pr_adaface": 82.0,
+    "pr_adaface_ci95": [
+      73.3,
+      88.3
+    ],
+    "mean_dist_adaface": 0.419,
+    "pr_elasticface": 95.0,
+    "pr_elasticface_ci95": [
+      88.8,
+      97.8
+    ],
+    "mean_dist_elasticface": 0.5097,
+    "pr_sphereface": 93.0,
+    "pr_sphereface_ci95": [
+      86.3,
+      96.6
+    ],
+    "mean_dist_sphereface": 0.476,
+    "arcface_no_face": 0
+  },
+  "aligned_paste": {
+    "ssim": {
+      "mean": 0.8709999999999998,
+      "std": 0.011511941625981256
+    },
+    "lpips": {
+      "mean": 0.13355599999999998,
+      "std": 0.03262022783488797
+    },
+    "time": {
+      "mean": 11.510899999999998,
+      "std": 0.8186441168175583
+    },
+    "pr_facenet": 100.0,
+    "pr_facenet_ci95": [
+      96.3,
+      100.0
+    ],
+    "mean_dist_facenet": 0.8688,
+    "pr_vggface": 100.0,
+    "pr_vggface_ci95": [
+      96.3,
+      100.0
+    ],
+    "mean_dist_vggface": 0.9229,
+    "pr_arcface": 87.0,
+    "pr_arcface_ci95": [
+      79.0,
+      92.2
+    ],
+    "mean_dist_arcface": 0.4304,
+    "pr_adaface": 72.0,
+    "pr_adaface_ci95": [
+      62.5,
+      79.9
+    ],
+    "mean_dist_adaface": 0.3787,
+    "pr_elasticface": 88.0,
+    "pr_elasticface_ci95": [
+      80.2,
+      93.0
+    ],
+    "mean_dist_elasticface": 0.4457,
+    "pr_sphereface": 90.0,
+    "pr_sphereface_ci95": [
+      82.6,
+      94.5
+    ],
+    "mean_dist_sphereface": 0.4443,
+    "arcface_no_face": 0
+  },
+  "mcnemar_vs_baseline": [
+    {
+      "condition": "aligned_crop",
+      "target": "facenet",
+      "aligned_only": 0,
+      "baseline_only": 0,
+      "pr_change_pts": 0.0,
+      "p_exact": 1.0
+    },
+    {
+      "condition": "aligned_crop",
+      "target": "vggface",
+      "aligned_only": 0,
+      "baseline_only": 0,
+      "pr_change_pts": 0.0,
+      "p_exact": 1.0
+    },
+    {
+      "condition": "aligned_crop",
+      "target": "arcface",
+      "aligned_only": 51,
+      "baseline_only": 0,
+      "pr_change_pts": 51.0,
+      "p_exact": 8.88e-16
+    },
+    {
+      "condition": "aligned_crop",
+      "target": "adaface",
+      "aligned_only": 18,
+      "baseline_only": 8,
+      "pr_change_pts": 10.0,
+      "p_exact": 0.0755
+    },
+    {
+      "condition": "aligned_crop",
+      "target": "elasticface",
+      "aligned_only": 23,
+      "baseline_only": 2,
+      "pr_change_pts": 21.0,
+      "p_exact": 1.94e-05
+    },
+    {
+      "condition": "aligned_crop",
+      "target": "sphereface",
+      "aligned_only": 78,
+      "baseline_only": 1,
+      "pr_change_pts": 77.0,
+      "p_exact": 2.65e-22
+    },
+    {
+      "condition": "aligned_paste",
+      "target": "facenet",
+      "aligned_only": 0,
+      "baseline_only": 0,
+      "pr_change_pts": 0.0,
+      "p_exact": 1.0
+    },
+    {
+      "condition": "aligned_paste",
+      "target": "vggface",
+      "aligned_only": 0,
+      "baseline_only": 0,
+      "pr_change_pts": 0.0,
+      "p_exact": 1.0
+    },
+    {
+      "condition": "aligned_paste",
+      "target": "arcface",
+      "aligned_only": 54,
+      "baseline_only": 0,
+      "pr_change_pts": 54.0,
+      "p_exact": 1.11e-16
+    },
+    {
+      "condition": "aligned_paste",
+      "target": "adaface",
+      "aligned_only": 15,
+      "baseline_only": 15,
+      "pr_change_pts": 0.0,
+      "p_exact": 1.0
+    },
+    {
+      "condition": "aligned_paste",
+      "target": "elasticface",
+      "aligned_only": 21,
+      "baseline_only": 7,
+      "pr_change_pts": 14.0,
+      "p_exact": 0.0125
+    },
+    {
+      "condition": "aligned_paste",
+      "target": "sphereface",
+      "aligned_only": 75,
+      "baseline_only": 1,
+      "pr_change_pts": 74.0,
+      "p_exact": 2.04e-21
+    }
+  ]
+}
