@@ -12,3 +12,10 @@ app/frontend/dist/
 
 app/frontend/node_modules/
 app/frontend/dist/
+
+# Large evaluation artefacts (regenerate with the scripts + manifest)
+experiments/eval_full/images_*/
+experiments/lowkey_official_500/*.png
+experiments/eval500_inputs/*.jpg
+experiments/eval500_inputs.zip
+app/frontend/package-lock.json

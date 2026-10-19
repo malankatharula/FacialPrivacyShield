@@ -1,0 +1,112 @@
+{
+  "n_images": 500,
+  "n_identities": 100,
+  "vggface": "real",
+  "vgg_config": "rgb01",
+  "single": {
+    "time": {
+      "mean": 3.3774799999999994,
+      "std": 1.934876856443324
+    },
+    "ssim": {
+      "mean": 0.8475132000000001,
+      "std": 0.03755893749508896
+    },
+    "lpips": {
+      "mean": 0.021979400000000003,
+      "std": 0.007902561334149833
+    },
+    "pr_facenet": 100.0,
+    "pr_vggface": 11.200000000000001,
+    "pr_arcface": 15.8,
+    "pr_adaface": 24.0,
+    "pr_elasticface": 17.599999999999998,
+    "pr_sphereface": 4.8,
+    "arcface_no_face": 0
+  },
+  "ensemble": {
+    "time": {
+      "mean": 9.87516,
+      "std": 7.021441260482067
+    },
+    "ssim": {
+      "mean": 0.831988,
+      "std": 0.037217139277488806
+    },
+    "lpips": {
+      "mean": 0.025606,
+      "std": 0.008378377169834262
+    },
+    "pr_facenet": 100.0,
+    "pr_vggface": 100.0,
+    "pr_arcface": 29.599999999999998,
+    "pr_adaface": 70.39999999999999,
+    "pr_elasticface": 73.8,
+    "pr_sphereface": 14.000000000000002,
+    "arcface_no_face": 0
+  },
+  "fawkes": {
+    "time": {
+      "mean": 2.16038,
+      "std": 1.3315092397726724
+    },
+    "ssim": {
+      "mean": 0.8576376,
+      "std": 0.03709991625650926
+    },
+    "lpips": {
+      "mean": 0.019087600000000003,
+      "std": 0.006987841314740912
+    },
+    "pr_facenet": 100.0,
+    "pr_vggface": 2.1999999999999997,
+    "pr_arcface": 4.3999999999999995,
+    "pr_adaface": 5.800000000000001,
+    "pr_elasticface": 2.8000000000000003,
+    "pr_sphereface": 0.4,
+    "arcface_no_face": 0
+  },
+  "lowkey": {
+    "time": {
+      "mean": 5.526260000000001,
+      "std": 3.7253436636637964
+    },
+    "ssim": {
+      "mean": 0.8346444000000001,
+      "std": 0.03720363085291541
+    },
+    "lpips": {
+      "mean": 0.025541,
+      "std": 0.00827387085951914
+    },
+    "pr_facenet": 100.0,
+    "pr_vggface": 17.0,
+    "pr_arcface": 17.0,
+    "pr_adaface": 52.0,
+    "pr_elasticface": 54.800000000000004,
+    "pr_sphereface": 11.4,
+    "arcface_no_face": 0
+  },
+  "noise": {
+    "time": {
+      "mean": 2e-05,
+      "std": 0.0004467661580737736
+    },
+    "ssim": {
+      "mean": 0.8921684,
+      "std": 0.027072183536611893
+    },
+    "lpips": {
+      "mean": 0.031828800000000004,
+      "std": 0.01775089886625463
+    },
+    "pr_facenet": 0.0,
+    "pr_vggface": 0.0,
+    "pr_arcface": 0.2,
+    "pr_adaface": 0.0,
+    "pr_elasticface": 0.0,
+    "pr_sphereface": 0.0,
+    "arcface_no_face": 0
+  },
+  "arcface_no_face_original": 0
+}

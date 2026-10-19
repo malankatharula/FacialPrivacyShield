@@ -1,0 +1,89 @@
+{
+  "n_images": 10,
+  "n_identities": 2,
+  "single": {
+    "time": {
+      "mean": 20.816,
+      "std": 3.273732426451496
+    },
+    "ssim": {
+      "mean": 0.86455,
+      "std": 0.018924706074335742
+    },
+    "lpips": {
+      "mean": 0.01981,
+      "std": 0.007160928710719022
+    },
+    "pr_facenet": 100.0,
+    "pr_vggface": 20.0,
+    "pr_arcface": 10.0,
+    "pr_adaface": 20.0,
+    "pr_elasticface": 30.0,
+    "pr_sphereface": 10.0,
+    "arcface_no_face": 0
+  },
+  "ensemble": {
+    "time": {
+      "mean": 43.241,
+      "std": 2.4050049895998136
+    },
+    "ssim": {
+      "mean": 0.85419,
+      "std": 0.018917423186047305
+    },
+    "lpips": {
+      "mean": 0.02141,
+      "std": 0.007260502737414263
+    },
+    "pr_facenet": 100.0,
+    "pr_vggface": 100.0,
+    "pr_arcface": 10.0,
+    "pr_adaface": 30.0,
+    "pr_elasticface": 50.0,
+    "pr_sphereface": 10.0,
+    "arcface_no_face": 0
+  },
+  "fawkes": {
+    "time": {
+      "mean": 11.833,
+      "std": 1.8834279917214778
+    },
+    "ssim": {
+      "mean": 0.8717900000000001,
+      "std": 0.018287670710071317
+    },
+    "lpips": {
+      "mean": 0.02099,
+      "std": 0.011536589617386935
+    },
+    "pr_facenet": 100.0,
+    "pr_vggface": 20.0,
+    "pr_arcface": 0.0,
+    "pr_adaface": 0.0,
+    "pr_elasticface": 0.0,
+    "pr_sphereface": 0.0,
+    "arcface_no_face": 0
+  },
+  "lowkey": {
+    "time": {
+      "mean": 35.747,
+      "std": 4.615838060417631
+    },
+    "ssim": {
+      "mean": 0.8520499999999999,
+      "std": 0.020028941559653127
+    },
+    "lpips": {
+      "mean": 0.0238,
+      "std": 0.008423301015635142
+    },
+    "pr_facenet": 100.0,
+    "pr_vggface": 50.0,
+    "pr_arcface": 10.0,
+    "pr_adaface": 50.0,
+    "pr_elasticface": 60.0,
+    "pr_sphereface": 10.0,
+    "arcface_no_face": 0
+  },
+  "arcface_no_face_original": 0
+}

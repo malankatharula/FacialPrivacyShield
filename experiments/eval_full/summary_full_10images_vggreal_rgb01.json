@@ -1,0 +1,91 @@
+{
+  "n_images": 10,
+  "n_identities": 2,
+  "vggface": "real",
+  "vgg_config": "rgb01",
+  "single": {
+    "time": {
+      "mean": 5.848,
+      "std": 0.9800183671748198
+    },
+    "ssim": {
+      "mean": 0.86463,
+      "std": 0.018951783557227535
+    },
+    "lpips": {
+      "mean": 0.01971,
+      "std": 0.007171534006054771
+    },
+    "pr_facenet": 100.0,
+    "pr_vggface": 0.0,
+    "pr_arcface": 10.0,
+    "pr_adaface": 20.0,
+    "pr_elasticface": 30.0,
+    "pr_sphereface": 10.0,
+    "arcface_no_face": 0
+  },
+  "ensemble": {
+    "time": {
+      "mean": 10.254000000000001,
+      "std": 0.86912829892945
+    },
+    "ssim": {
+      "mean": 0.84825,
+      "std": 0.020423772912956113
+    },
+    "lpips": {
+      "mean": 0.02443,
+      "std": 0.007297540681626927
+    },
+    "pr_facenet": 100.0,
+    "pr_vggface": 100.0,
+    "pr_arcface": 10.0,
+    "pr_adaface": 50.0,
+    "pr_elasticface": 80.0,
+    "pr_sphereface": 20.0,
+    "arcface_no_face": 0
+  },
+  "fawkes": {
+    "time": {
+      "mean": 4.0520000000000005,
+      "std": 0.6793644088410873
+    },
+    "ssim": {
+      "mean": 0.8718600000000001,
+      "std": 0.018405227518289474
+    },
+    "lpips": {
+      "mean": 0.02177,
+      "std": 0.011177392361369444
+    },
+    "pr_facenet": 100.0,
+    "pr_vggface": 10.0,
+    "pr_arcface": 0.0,
+    "pr_adaface": 0.0,
+    "pr_elasticface": 0.0,
+    "pr_sphereface": 0.0,
+    "arcface_no_face": 0
+  },
+  "lowkey": {
+    "time": {
+      "mean": 8.957,
+      "std": 1.4214151399221835
+    },
+    "ssim": {
+      "mean": 0.8522299999999999,
+      "std": 0.02012431613744923
+    },
+    "lpips": {
+      "mean": 0.02416,
+      "std": 0.009585948049097699
+    },
+    "pr_facenet": 100.0,
+    "pr_vggface": 10.0,
+    "pr_arcface": 10.0,
+    "pr_adaface": 50.0,
+    "pr_elasticface": 60.0,
+    "pr_sphereface": 10.0,
+    "arcface_no_face": 0
+  },
+  "arcface_no_face_original": 0
+}
